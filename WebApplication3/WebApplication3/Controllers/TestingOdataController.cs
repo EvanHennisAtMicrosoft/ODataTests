@@ -27,12 +27,11 @@ namespace WebApplication3.Controllers
                 },
                 Resources = new List<AuthorizationSystem>()
                 {
-                    new CustomAuthorizationSystem()
+                    new AuthorizationSystem()
                     {
                         AuthorizationSystemId = "Id-1",
                         AuthorizationSystemName = "Name-1",
-                        AuthorizationSystemType = "Aws",
-                        Url = "http://any/evan2"
+                        AuthorizationSystemType = "Aws"
                     },
                     new AuthorizationSystem()
                     {
@@ -69,8 +68,8 @@ namespace WebApplication3.Controllers
             // Adding this change will allow me to expand these 2 navigation
             // properties BUT it won't allow the skip token/paging to work.
             // **********
-            _odata.SelectExpandClause = BuildCustomExpand(queryOptions,
-                $"Actions,Resources");
+            //_odata.SelectExpandClause = BuildCustomExpand(queryOptions,
+            //    $"Actions,Resources");
 
             // *******
             // To get a working copy:
