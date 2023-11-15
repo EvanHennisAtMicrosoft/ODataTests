@@ -7,10 +7,10 @@ namespace WebApplication3.Models
     {
         public string Id { get; set; }
 
-        [AutoExpand]
+        //[AutoExpand]
         public List<AuthorizationSystemTypeAction> Actions { get; set; }
 
-        [AutoExpand]
+        //[AutoExpand]
         public List<AuthorizationSystem> Resources { get; set; }
     }
 

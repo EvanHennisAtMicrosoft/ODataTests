@@ -68,8 +68,8 @@ namespace WebApplication3.Controllers
             // Adding this change will allow me to expand these 2 navigation
             // properties BUT it won't allow the skip token/paging to work.
             // **********
-            //_odata.SelectExpandClause = BuildCustomExpand(queryOptions,
-            //    $"Actions,Resources");
+            _odata.SelectExpandClause = BuildCustomExpand(queryOptions,
+                $"Actions,Resources");
 
             // *******
             // To get a working copy:
