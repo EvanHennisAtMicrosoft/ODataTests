@@ -2,17 +2,19 @@
 using Microsoft.AspNetCore.OData.Extensions;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.OData.Edm;
 using Microsoft.OData.UriParser;
 using System.Xml.Linq;
+using WebApplication3.Extensions;
 using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
 {
     public class TestingOdataController : ODataController
     {
-        [EnableQuery(PageSize = 2)]
+        [EvanEnableQuery(PageSize = 2)]
         [HttpGet("odata/IdentityGovernance/PermissionsAnalytics/Findings/{key}/WebApplication3.Models.EscalationFinding")]
-        public IActionResult GetEscalation()
+        public IActionResult GetEscalation(ODataQueryOptions<EscalationFinding> opts)
         {
             EscalationFinding ret = new EscalationFinding()
             {
@@ -68,8 +70,7 @@ namespace WebApplication3.Controllers
             // Adding this change will allow me to expand these 2 navigation
             // properties BUT it won't allow the skip token/paging to work.
             // **********
-            _odata.SelectExpandClause = BuildCustomExpand(queryOptions,
-                $"Actions,Resources");
+            _odata.SelectExpandClause = BuildCustomExpand(opts,$"actions,resources");
 
             // *******
             // To get a working copy:
