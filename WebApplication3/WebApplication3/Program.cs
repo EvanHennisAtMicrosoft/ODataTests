@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.OData.Edm;
 using Microsoft.AspNetCore.OData.Formatter.Serialization;
+using Microsoft.AspNetCore.OData.Query;
 using WebApplication3.Extensions;
 using WebApplication3.Models;
 
@@ -11,7 +12,11 @@ var model = EdmModelBuilder.GetEdmModel();
 
 builder.Services.AddControllers().
     AddOData(opt => opt.AddRouteComponents("odata", model,
-    services => services.AddSingleton<ODataResourceSetSerializer, MyResourceSetSerializer>()).EnableQueryFeatures());
+    services => {
+        //services.AddSingleton<ODataResourceSetSerializer, MyResourceSetSerializer>();
+        //services.AddSingleton<ODataResourceSerializer, EvanSerial>();
+        //services.AddSingleton<SkipTokenHandler, EvanSkipTokenHandler>();
+    }).EnableQueryFeatures());
 
 builder.Services.AddSingleton<IPageSizeProvider>(sp => new PageSizeProvider(3));
 
