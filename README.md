@@ -76,3 +76,68 @@ Desired Results:
 ```
 
 I can get these results using `[EnableQuery(PageSize = 2)]` but I need to be able to handle a custom skiptoken
+
+## Dynamic Expand Properties
+I need to be able to dynamically expand properties based on the Url. In one scenario, I need to expand `Actions` and in another I need to expose `Resources`. If I have these auto expanded with default paging, it works. When I remove the `[AutoExpand]` property, it does not add the nextlink.
+
+With `[AutoExpand]`
+```
+{
+    "@odata.context": "http://localhost:5197/odata/$metadata#identityGovernance/PermissionsAnalytics/Findings/WebApplication3.Models.EscalationFinding(Resources())/$entity",
+    "Id": "SomeId",
+    "Resources": [
+        {
+            "AuthorizationSystemId": "Id-1",
+            "AuthorizationSystemName": "Name-1",
+            "AuthorizationSystemType": "Aws"
+        },
+        {
+            "AuthorizationSystemId": "Id-2",
+            "AuthorizationSystemName": "Name-2",
+            "AuthorizationSystemType": "Aws"
+        }
+    ],
+    "Resources@odata.nextLink": "http://localhost:5197/odata/identityGovernance/PermissionsAnalytics/Findings/SomeId/WebApplication3.Models.EscalationFinding/Resources?$skiptoken=AuthorizationSystemId-%27Id-2%27"
+}
+```
+
+With Custom Expand properties
+```
+{
+    "@odata.context": "http://localhost:5197/odata/$metadata#identityGovernance/PermissionsAnalytics/Findings/WebApplication3.Models.EscalationFinding(Actions(),Resources())/$entity",
+    "Id": "SomeId",
+    "Actions": [
+        {
+            "Id": "123",
+            "AuthorizationSystemTypeDb": 0
+        }
+    ],
+    "Resources": [
+        {
+            "AuthorizationSystemId": "Id-1",
+            "AuthorizationSystemName": "Name-1",
+            "AuthorizationSystemType": "Aws"
+        },
+        {
+            "AuthorizationSystemId": "Id-2",
+            "AuthorizationSystemName": "Name-2",
+            "AuthorizationSystemType": "Aws"
+        },
+        {
+            "AuthorizationSystemId": "Id-3",
+            "AuthorizationSystemName": "Name-3",
+            "AuthorizationSystemType": "Aws"
+        },
+        {
+            "AuthorizationSystemId": "Id-4",
+            "AuthorizationSystemName": "Name-4",
+            "AuthorizationSystemType": "Aws"
+        },
+        {
+            "AuthorizationSystemId": "Id-5",
+            "AuthorizationSystemName": "Name-5",
+            "AuthorizationSystemType": "Aws"
+        }
+    ]
+}
+```
